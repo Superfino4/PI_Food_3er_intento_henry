@@ -18,11 +18,11 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     platforms: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     image: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     released: {
