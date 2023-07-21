@@ -26,10 +26,10 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     released: {
-      type: DataTypes.DATEONLY,
+      type: DataTypes.STRING,
     },
     rating: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.STRING,
     },
   });
 };

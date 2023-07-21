@@ -2,22 +2,22 @@
 // llanar a una funcion que obtenga los datos de la APT externa
 // unir los detos, unificando el rormeto
 // cuando tenga los datos, responder con los datos
-const { createVideoGames, getVideoGameById, searchVideoGameByName, getAllVideoGame } = require("../controllers/videoGamesController.js");
+const { createVideoGames, searchVideosGameByName, getAllVideosGames, getVideoGameById } = require("../controllers/videoGamesController.js");
 
-const getVideosGamesHandler = (req, res) => {
+
+
+const getVideosGamesHandler = async (req, res) => {
     const { name } = req.query;
 
-    const results = name ? searchVideoGameByName(name) : getAllVideoGame();
+    const results = name ? searchVideosGameByName(name) : await getAllVideosGames();
 
-    if (name) res.send(`LOP!! Obtiene un listado con los videojuegos que se llamen ${name}`)
-    else res.send("LOP!! Obtiene un listado con todos los videojuegos")
+    res.status(200).json(results);
+
 };
 
 const getVideoGamesHandler = async (req, res) => {
     const { id } = req.params;
-
     const source = isNaN(id) ? "bdd" : "api"
-
     try {
         const videogames = await getVideoGameById(id, source);
         res.status(201).json(videogames);

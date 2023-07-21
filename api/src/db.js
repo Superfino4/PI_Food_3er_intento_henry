@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const VideoGameModel = require("./models/Videogame.js");
+const videogame = require("./models/Videogame.js");
 const GenreModel = require("./models/Genre.js");
 const fs = require('fs');
 const path = require('path');
@@ -11,7 +11,7 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 });
 
-VideoGameModel(sequelize);
+videogame(sequelize);
 GenreModel(sequelize);
 
 const basename = path.basename(__filename);
