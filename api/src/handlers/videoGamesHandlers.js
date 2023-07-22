@@ -9,7 +9,7 @@ const { createVideoGames, searchVideosGameByName, getAllVideosGames, getVideoGam
 const getVideosGamesHandler = async (req, res) => {
     const { name } = req.query;
 
-    const results = name ? searchVideosGameByName(name) : await getAllVideosGames();
+    const results = name ? await searchVideosGameByName(name) : await getAllVideosGames();
 
     res.status(200).json(results);
 

@@ -56,11 +56,10 @@ const getGamesOnApi = async () => {
             id: el.id,
             name: el.name,
             description: el.description,
+            platforms: el.platforms.map((p) => p.platform.name),
+            image: el.background_image,
             released: el.released,
             rating: el.rating,
-            image: el.background_image,
-            platforms: el.platforms.map((p) => p.platform.name),
-            genres: el.genres.map((g) => g.name),
         }
     })
     return data;
@@ -83,10 +82,34 @@ const getAllVideosGames = async () => {
     // return [...bdVideosGames];
 };
 
-const searchVideosGameByName = async () => {
+const searchVideosGameByName = async (name) => {
+    const bdVideosGames = await Videogame.findAll({ where: { name: name } });
+    const apiVideosgames = await getGamesOnApi()
+
+    const filteredApi = apiVideosgames.filter((Videogame) => Videogame.name === name);
+
+    let allNames = [...bdVideosGames, ...filteredApi];
+
+    let videoGamesNames = allNames.filter((el) =>
+        el.name.toLowerCase().includes(name.toLowerCase())
+    );
+    const data = videoGamesNames.map((el) => {
+        return {
+            id: el.id,
+            name: el.name,
+            description: el.description,
+            platforms: el.platforms,
+            image: el.background_image,
+            released: el.released,
+            rating: el.rating,
+        }
+    });
+
+    if (data.length === 0) {
+        throw new Error(`No se encontraron datos`)
+    }
+    return data;
+}
 
 
-};
-
-
-module.exports = { createVideoGames, searchVideosGameByName, getAllVideosGames, getVideoGameById }
+module.exports = { createVideoGames, searchVideosGameByName, getAllVideosGames, getVideoGameById };
